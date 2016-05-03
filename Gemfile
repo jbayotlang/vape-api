@@ -8,7 +8,7 @@ gem 'rails-api'
 gem 'spring', :group => :development
 gem 'rails_12factor', group: :production
 
-gem 'sqlite3'
+gem 'sqlite3', :group => :development
 
 gem 'active_model_serializers'
 
