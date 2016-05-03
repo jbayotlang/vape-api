@@ -6,9 +6,11 @@ gem 'rails', '4.2.4'
 gem 'rails-api'
 
 gem 'spring', :group => :development
+gem 'rails_12factor', group: :production
 
 gem 'sqlite3'
 
+gem 'active_model_serializers'
 
 
 # To use ActiveModel has_secure_password
@@ -25,3 +27,5 @@ gem 'sqlite3'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+ruby "2.2.1"
