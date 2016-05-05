@@ -1,17 +1,21 @@
 class V1::JuicesController < ApplicationController
   def index
     @juices = Juice.all
-    render json: @juices, meta: { result_set: @juices.size }
+    render json: @juices, meta: { result_set: @juices.size }, status: :ok
   end
 
   def show
     @juice = Juice.find params[:id]
-    render json: @juice, root: false
+    render json: @juice, root: false, status: :ok
   end
 
   def create
-    @juice = Juice.create juice_params
-    render json: @juice, root: false
+    @juice = Juice.new juice_params
+    if @juice.save
+      render json: @juice, root: false, status: :created
+    else
+      validation_error_response(@juice)
+    end
   end
 
   def update

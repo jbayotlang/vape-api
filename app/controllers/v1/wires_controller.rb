@@ -10,8 +10,12 @@ class V1::WiresController < ApplicationController
   end
 
   def create
-    @wire = Wire.create wire_params
-    render json: @wire, root: false
+    @wire = Wire.new wire_params
+    if @wire.save
+      render json: @wire, root: false
+    else
+      validation_error_response(@wire)
+    end
   end
 
   def update

@@ -1,7 +1,7 @@
 class V1::ModsController < ApplicationController
   def index
     @mods = Mod.all
-    render json: @mods, meta: { result_set: @mods.size }
+    render json: @mods, meta: { result_set: @mods.size }, status: :ok
   end
 
   def show
@@ -10,8 +10,12 @@ class V1::ModsController < ApplicationController
   end
 
   def create
-    @mod = Mod.create mod_params
-    render json: @mod, root: false
+    @mod = Mod.new mod_params
+    if @mod.save
+      render json: @mod, root: false
+    else
+      validation_error_response(@mod)
+    end
   end
 
   def update

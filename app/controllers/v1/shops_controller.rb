@@ -10,8 +10,12 @@ class V1::ShopsController < ApplicationController
   end
 
   def create
-    @shop = Shop.create shop_params
-    render json: @shop, root: false
+    @shop = Shop.new shop_params
+    if @shop.save
+      render json: @shop, root: false
+    else
+      validation_error_response(@shop)
+    end
   end
 
   def update
