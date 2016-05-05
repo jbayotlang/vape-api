@@ -1,9 +1,12 @@
 class V1::BaseController < ActionController::API
   include ActionController::Serialization
 
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_response
-  rescue_from ActionController::ParameterMissing, with: :parameter_missing_response
-  rescue_from ActionController::RoutingError with: :routing_error_response
+  rescue_from ActiveRecord::RecordNotFound,
+      with: :record_not_found_response
+  rescue_from ActionController::ParameterMissing,
+      with: :parameter_missing_response
+  rescue_from ActionController::RoutingError,
+      with: :routing_error_response
 
   def validation_error_response(obj)
     render json: {
