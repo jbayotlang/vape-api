@@ -1,13 +1,13 @@
 class V1::BaseController < ActionController::API
+  include ActionController::Serialization
 
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  rescue_from ActionController::ParameterMissing do | exception |
-    render json: { error: "#{exception.param} is required" }, status: 422
-  end
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_response
+  rescue_from ActionController::ParameterMissing, with: :parameter_missing_response
+  rescue_from ActionController::RoutingError with: :routing_error_response
 
   def validation_error_response(obj)
     render json: {
-      status: "400",
+      status_code: "400",
       code: "1",
       title: "Validation Errors",
       details: { errors: obj.errors.full_messages },
@@ -16,8 +16,30 @@ class V1::BaseController < ActionController::API
 
   private
 
-  # Status Code: 404
-  def record_not_found
-    render json: { "status_code": "not_found" }
+  def record_not_found_response(e)
+    render json: {
+      status_code: "404",
+      code: "2",
+      title: "Record not found",
+      details: { message: e.message },
+    }, status: :not_found
+  end
+
+  def parameter_missing_response(e)
+    render json: {
+      status_code: "422",
+      code: "3",
+      title: "Parameter missing",
+      details: { message: e.message },
+    }, status: 422
+  end
+
+  def routing_error_response(e)
+    render json: {
+      status_code: "404",
+      code: "3",
+      title: "Routing error",
+      details: { message: e.message },
+    }, status: :not_found
   end
 end
