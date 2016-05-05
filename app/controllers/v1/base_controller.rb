@@ -17,6 +17,15 @@ class V1::BaseController < ActionController::API
     }, status: :bad_request
   end
 
+  def routing_error_response
+    render json: {
+      status_code: "404",
+      code: "3",
+      title: "Routing error",
+      details: { message: "No route matches [#{request.method}] #{request.path}" },
+    }, status: :not_found
+  end
+
   private
 
   def record_not_found_response(e)
@@ -35,14 +44,5 @@ class V1::BaseController < ActionController::API
       title: "Parameter missing",
       details: { message: e.message },
     }, status: 422
-  end
-
-  def routing_error_response(e)
-    render json: {
-      status_code: "404",
-      code: "3",
-      title: "Routing error",
-      details: { message: e.message },
-    }, status: :not_found
   end
 end
