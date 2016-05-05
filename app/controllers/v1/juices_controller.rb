@@ -1,4 +1,4 @@
-class V1::JuicesController < ApplicationController
+class V1::JuicesController < V1::BaseController
   def index
     @juices = Juice.all
     render json: @juices, meta: { result_set: @juices.size }, status: :ok

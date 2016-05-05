@@ -1,4 +1,4 @@
-class V1::ShopsController < ApplicationController
+class V1::ShopsController < V1::BaseController
   def index
     @shops = Shop.all
     render json: @shops, meta: { result_set: @shops.size }

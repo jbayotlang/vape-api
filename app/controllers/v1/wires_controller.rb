@@ -1,4 +1,4 @@
-class V1::WiresController < ApplicationController
+class V1::WiresController < V1::BaseController
   def index
     @wires = Wire.all
     render json: @wires, meta: { result_set: @wires.size }

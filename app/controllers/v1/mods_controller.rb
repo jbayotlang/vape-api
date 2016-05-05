@@ -1,4 +1,4 @@
-class V1::ModsController < ApplicationController
+class V1::ModsController < V1::BaseController
   def index
     @mods = Mod.all
     render json: @mods, meta: { result_set: @mods.size }, status: :ok
