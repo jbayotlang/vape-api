@@ -1,0 +1,15 @@
+{
+  "baseUrl": "localhost:3000",
+  "projectId": "44b2f6a4-eb52-4f6f-958e-fa230fd52e26",
+  "env": {
+    "v1": {
+      "modsURL": "/v1/mods",
+      "wiresURL": "/v1/wires",
+      "juicesURL": "/v1/juices",
+      "shopsURL": "/v1/shops"
+    },
+    "v2": {
+
+    }
+  }
+}
